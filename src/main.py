@@ -88,7 +88,7 @@ def plot_history(H, epochs):
 
 ##### SAVE MODEL SUMMARY FUNCTION
 def save_summary(s):
-    with open(summary_path, 'a') as f:
+    with open(os.path.join("out", "model_summary.txt"), 'a') as f:
         print(s, file = f)
 
 ##### MAIN
@@ -209,6 +209,8 @@ def main():
     # summarize
     model.summary(print_fn = save_summary)
 
+    print(model.summary())
+
     # IMAGE PREPROCESSING + DATA AUGMENTATION
 
     # Some necessary variables
@@ -262,11 +264,11 @@ def main():
     H = model.fit(
         train_data_gen,
         validation_data = val_data_gen,
-        epochs = 20,
+        epochs = 5,
         callbacks = [early_stop])
 
     # Plot history. 
-    plot = plot_history(H, 20)
+    plot = plot_history(H, 5)
 
     # Make predictions. 
     predictions = model.predict(
@@ -292,3 +294,7 @@ def main():
 
     with open(outpath, 'w') as f:
         f.write(report)
+
+
+if __name__ == "__main__":
+    main()

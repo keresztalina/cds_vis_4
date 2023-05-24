@@ -4,7 +4,7 @@ This assignment is ***Part 4*** of the portfolio exam for ***Visual Analytics S2
 ## 4.1. Contribution
 This assignment makes use of code provided as part of the course (for example the plotting function, which has only been edited to save the produced plot). Otherwise the final code is my own. 
 
-Here is the link to the GitHub repository containing the code for this assignment: ADD
+Here is the link to the GitHub repository containing the code for this assignment: https://github.com/keresztalina/cds_vis_4
 
 ## 4.2. Assignment description
 In this self-assigned project, I wanted to see how well I could apply the methods learned during this course to a dataset that was structured differently, as well as what additional tools I could make use of. The dataset I decided to use is a collection of different landscapes found on Kaggle: https://www.kaggle.com/datasets/utkarshsaxenadn/landscape-recognition-image-dataset-12k-images. These are the possible categories, as described by the uploader:
@@ -19,7 +19,7 @@ In this self-assigned project, I wanted to see how well I could apply the method
 > 
 > **Mountains.** This class shows you the world from the top i.e. the mountain areas such as the Himalayas.
 
-## 3.3. Methods
+## 4.3. Methods
 The purpose of this script is to use a pretrained convolutional neural network (CNN) with additional classifier layers to classify previously unseen images of landscapes into 5 possible categories (coasts, deserts, forests, glaciers and mountains) with the highest possible accuracy. 
 
 First, the structure of the dataset is established within the script. There are 12000 images in total. The data is predivided into training, validation and test splits. Within each split, the images of each category are contained within their own folder in the following manner:
@@ -49,6 +49,65 @@ Third, the images are preprocessed and the data is augmented. The images are res
 
 Then, the model is fit to the data and validated on the validation split through 10 epochs. The model's performance is tested by using to predict the labels in the test split. Finally, a classification report is made.
 
-## 3.4 Usage
-### 1.4.1. Prerequisites
+## 4.4 Usage
+### 4.4.1. Prerequisites
 This code was written and executed in the UCloud application's Coder Python interface (version 1.77.3, running Python version 3.9.2). UCloud provides virtual machines with a Linux-based operating system, therefore, the code has been optimized for Linux and may need adjustment for Windows and Mac.
+
+### 4.4.2. Installations
+1. Clone this repository somewhere on your device.
+2. On the same level as your repository, create a ```/data``` folder. Download the data from https://www.kaggle.com/datasets/utkarshsaxenadn/landscape-recognition-image-dataset-12k-images into this folder. Your folder organization should look like this:
+
+> - cds_vis_4
+>     - out
+>     - src
+> - data
+>     - test
+>         - Coast
+>         - Desert
+>         - Forest
+>         - Glacier
+>         - Mountain
+>     - train
+>         - Coast
+>         - Desert
+>         - Forest
+>         - Glacier
+>         - Mountain
+>     - val
+>         - Coast
+>         - Desert
+>         - Forest
+>         - Glacier
+>         - Mountain
+
+3. Open a terminal and navigate into the ```/cds_vis_4``` folder. Run the following lines in order to install the necessary packages:
+        
+        pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
+        
+### 4.4.3. Run the script
+In order to run the script, make sure your current directory is still the ```/cds_vis_4``` folder. From command line, run:
+
+        python3 src/landscape_classifier.py
+        
+After running the script, within the ```/out``` folder, you will find a summary of the model run, a plot of the history for diagnostics and a classification report.
+
+## 4.5. Discussion
+The classifier was set to train for 50 epochs with an early stopping function in place to prevent overtraining. In the end, it trained for 29 epochs.
+
+When looking at the plot of the training history, it can be seen that the line for validation has become shaky and has diverged quite a bit from the line for training. This means that at one point the model began to overfit. The early stopping function was a great help with this problem, as it stopped the training when there was no further improvement and restored the optimal weights.
+
+Overall, the landscape classifier performs significantly better than chance, reaching a mean accuracy of 77%. It is best at classifying forests, which it does with 87% accuracy, and worst at classifying mountains, which it does with 62% accuracy. Looking at the images, this can in part be explained by the fact that sometimes images contain two types of landscapes in one image, e.g. the foreground may be forest, but there may be mountains in the background, which confuses the classifier. 
+
+Other users of this dataset have managed to achieve accuracies of 92%, however, not with VGG16. I first tried to use ResNet50, but the results were worse. Trying further classifiers and changing up some parameters may end up being able to improve accuracy. 
+
+
+
+
+
+
+
+
+
+
+

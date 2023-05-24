@@ -1,0 +1,11 @@
+              precision    recall  f1-score   support
+
+       Coast       0.76      0.77      0.77       100
+      Desert       0.81      0.87      0.84       100
+      Forest       0.89      0.85      0.87       100
+     Glacier       0.71      0.80      0.75       100
+    Mountain       0.68      0.57      0.62       100
+
+    accuracy                           0.77       500
+   macro avg       0.77      0.77      0.77       500
+weighted avg       0.77      0.77      0.77       500

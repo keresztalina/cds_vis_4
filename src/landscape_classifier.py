@@ -264,11 +264,11 @@ def main():
     H = model.fit(
         train_data_gen,
         validation_data = val_data_gen,
-        epochs = 5,
+        epochs = 50,
         callbacks = [early_stop])
 
     # Plot history. 
-    plot = plot_history(H, 5)
+    plot = plot_history(H, len(H.history['loss']))
 
     # Make predictions. 
     predictions = model.predict(
@@ -294,7 +294,6 @@ def main():
 
     with open(outpath, 'w') as f:
         f.write(report)
-
 
 if __name__ == "__main__":
     main()
